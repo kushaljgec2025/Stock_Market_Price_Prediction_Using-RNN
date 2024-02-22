@@ -10,10 +10,16 @@ from keras.models import load_model
 import streamlit as st
 from sklearn.preprocessing import MinMaxScaler
 import requests
+# Specify the file path to your favicon
+favicon_path = './favicon.ico'
 
-
-
-
+# Set the page configuration including the favicon
+st.set_page_config(
+    page_title='Stock Prediction',
+    page_icon=favicon_path,
+    
+    initial_sidebar_state='auto'
+)
 # Today Date Labaleing
 
 today = date.today()
