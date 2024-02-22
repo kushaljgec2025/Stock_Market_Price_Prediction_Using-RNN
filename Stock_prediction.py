@@ -84,6 +84,9 @@ if submit:
 
     #Describing data
     st.subheader(f'From {start_date} to {end_date}')
+    st.write(df1)
+
+    st.subheader('Statistics of Data')
     st.write(df1.describe())
 
     st.subheader('Closing Price vs Time chart')
