@@ -3,13 +3,16 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
-import datetime as dt
+from datetime import datetime
 from datetime import date, timedelta
 import matplotlib.pyplot as plt
 from keras.models import load_model
 import streamlit as st
 from sklearn.preprocessing import MinMaxScaler
 import requests
+import total_days
+
+
 # Specify the file path to your favicon
 favicon_path = './favicon.ico'
 
@@ -20,6 +23,19 @@ st.set_page_config(
     
     initial_sidebar_state='auto'
 )
+
+m = st.markdown("""
+<style>
+div.stButton > button:first-child {
+    background-color:#04AA6D;
+    color:white;
+    border:none
+}
+                    
+</style>""", unsafe_allow_html=True)
+
+
+
 # Today Date Labaleing
 
 today = date.today()
@@ -34,27 +50,36 @@ today = date.today()
 st.title('Stock Market Trend Prediction using LSTM')
 user_ip=st.text_input('Enter Company Name', 'GOOG')
 start_date=st.text_input('Enter Start Date (DD-MM-YYYY)')
+end_date=today
+
+
 
 submit=st.button('Submit')
 if submit:
         
     # ticker=get_ticker(user_ip.upper())
     # print(ticker)
+    d1= end_date.strftime("%d-%m-%Y")
+   
+    tot_days=total_days.calculate_days_between_dates(start_date,d1)
+    st.subheader("Total days")
+    tot_days
+    d1= end_date.strftime("%Y-%m-%d")
+    d2 = (end_date - timedelta(days=tot_days)).strftime("%Y-%m-%d")
+    start_date=d2
+    end_date=d1
     msft = yf.Ticker(user_ip)
     company_name = msft.info['longName']
 
     st.subheader('Stock Trend Prediction of '+ company_name)
-
+    
 
     # ticker = get_ticker(user_ip)
     # ticker
-    end_date=today
+   
     ticker_data1 = yf.Ticker(user_ip)
-    d1= end_date.strftime("%Y-%m-%d")
-    d2 = (end_date - timedelta(days=365)).strftime("%Y-%m-%d")
-    start_date=d2
-    end_date=d1
-
+    
+    
     df1=ticker_data1.history(period='1d', start=start_date, end=end_date)
 
 
