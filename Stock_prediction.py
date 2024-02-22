@@ -30,8 +30,7 @@ div.stButton > button:first-child {
     background-color:#04AA6D;
     color:white;
     border:none
-}
-                    
+}          
 </style>""", unsafe_allow_html=True)
 
 
@@ -48,7 +47,7 @@ today = date.today()
 
 # company_name=''
 st.title('Stock Market Trend Prediction using LSTM')
-user_ip=st.text_input('Enter Company Name', 'GOOG')
+user_ip=st.text_input('Enter Company Ticker Symbol')
 start_date=st.text_input('Enter Start Date (DD-MM-YYYY)')
 end_date=today
 
@@ -85,12 +84,8 @@ if submit:
 
     #Describing data
     st.subheader(f'From {start_date} to {end_date}')
-    st.write(df1)
-
-    st.subheader('Data Statistics')
     st.write(df1.describe())
 
-    
     st.subheader('Closing Price vs Time chart')
     fig=plt.figure(figsize=(12,6))
     plt.plot(df1.Close)
