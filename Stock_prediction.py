@@ -85,8 +85,12 @@ if submit:
 
     #Describing data
     st.subheader(f'From {start_date} to {end_date}')
+    st.write(df1)
+
+    st.subheader('Data Statistics')
     st.write(df1.describe())
 
+    
     st.subheader('Closing Price vs Time chart')
     fig=plt.figure(figsize=(12,6))
     plt.plot(df1.Close)
