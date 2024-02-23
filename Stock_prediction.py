@@ -78,7 +78,7 @@ if submit:
     time.sleep(1)
     my_bar.empty()
 
-    
+
     # ticker=get_ticker(user_ip.upper())
     # print(ticker)
     tot_days=total_days.calculate_days_between_dates(d2,d1)
@@ -109,10 +109,11 @@ if submit:
 
     #Describing data
     st.subheader(f'From {start_date} to {end_date}')
-    st.write(df1)
+    st.dataframe(df1, width=1000, height=300)
+   
 
     st.subheader('Statistics of Data')
-    st.write(df1.describe())
+    st.dataframe(df1.describe(), width=1000)
 
     st.subheader('Closing Price vs Time chart')
     fig=plt.figure(figsize=(12,6))
