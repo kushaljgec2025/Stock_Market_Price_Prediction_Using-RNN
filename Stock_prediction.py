@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 from datetime import date, timedelta
+import time
 import matplotlib.pyplot as plt
 from keras.models import load_model
 import streamlit as st
@@ -46,16 +47,18 @@ today = date.today()
 
 
 # company_name=''
-st.title('Stock Market Trend Prediction using LSTM')
+# st.image('./banner.png')
+st.title('Stock Market Trend Prediction using Long Short-Term Memory (LSTM)')
 user_ip=st.text_input('Enter Company Ticker Symbol')
-start_date=st.date_input('Enter Start Date (DD-MM-YYYY)',format="DD/MM/YYYY")
+col1,col2 = st.columns(2,gap='medium')
+start_date=col1.date_input('Enter Start Date (DD-MM-YYYY)',format="DD/MM/YYYY")
 
 d2= start_date.strftime("%d-%m-%Y")
-d2
-end_date=st.date_input('Enter End Date (DD-MM-YYYY)',format="DD/MM/YYYY")
+#d2
+end_date=col2.date_input('Enter End Date (DD-MM-YYYY)',format="DD/MM/YYYY")
 
 d1= end_date.strftime("%d-%m-%Y")
-d1
+#d1
 # start_date=start_date.replace('-','/')
 
 # end_date=today
@@ -64,6 +67,17 @@ d1
 
 submit=st.button('Submit')
 if submit:
+
+    #progress bar
+    progress_text = "Please wait, we are fetching the data..."
+    my_bar = st.progress(0, text=progress_text)
+
+    for percent_complete in range(100):
+        time.sleep(0.01)
+        my_bar.progress(percent_complete + 1, text=progress_text)
+    time.sleep(1)
+    my_bar.empty()
+
     
     # ticker=get_ticker(user_ip.upper())
     # print(ticker)
