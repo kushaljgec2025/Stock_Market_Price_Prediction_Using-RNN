@@ -48,19 +48,26 @@ today = date.today()
 # company_name=''
 st.title('Stock Market Trend Prediction using LSTM')
 user_ip=st.text_input('Enter Company Ticker Symbol')
-start_date=st.text_input('Enter Start Date (DD-MM-YYYY)')
-end_date=today
+start_date=st.date_input('Enter Start Date (DD-MM-YYYY)',format="DD/MM/YYYY")
+
+d2= start_date.strftime("%d-%m-%Y")
+d2
+end_date=st.date_input('Enter End Date (DD-MM-YYYY)',format="DD/MM/YYYY")
+
+d1= end_date.strftime("%d-%m-%Y")
+d1
+# start_date=start_date.replace('-','/')
+
+# end_date=today
 
 
 
 submit=st.button('Submit')
 if submit:
-        
+    
     # ticker=get_ticker(user_ip.upper())
     # print(ticker)
-    d1= end_date.strftime("%d-%m-%Y")
-   
-    tot_days=total_days.calculate_days_between_dates(start_date,d1)
+    tot_days=total_days.calculate_days_between_dates(d2,d1)
     st.subheader("Total days")
     tot_days
     d1= end_date.strftime("%Y-%m-%d")
@@ -68,8 +75,12 @@ if submit:
     start_date=d2
     end_date=d1
     msft = yf.Ticker(user_ip)
+    
     company_name = msft.info['longName']
-
+    if company_name:
+        st.success("Got it")
+    
+       
     st.subheader('Stock Trend Prediction of '+ company_name)
     
 
@@ -151,7 +162,7 @@ if submit:
     #Graph plot
 
 
-
+    st.success("Predicted Stock")
     st.subheader('Prediction vs Original of '+ company_name)
     fig2=plt.figure(figsize=(12, 6))
     plt.plot(y_test, 'b', label='original price')
