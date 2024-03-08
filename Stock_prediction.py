@@ -21,18 +21,8 @@ favicon_path = './favicon.ico'
 st.set_page_config(
     page_title='Stock Prediction',
     page_icon=favicon_path,
-    
     initial_sidebar_state='auto'
 )
-
-m = st.markdown("""
-<style>
-div.stButton > button:first-child {
-    background-color:#04AA6D;
-    color:white;
-    border:none
-}          
-</style>""", unsafe_allow_html=True)
 
 
 
@@ -66,10 +56,10 @@ d1= end_date.strftime("%d-%m-%Y")
 
 
 submit=st.button('Submit')
-if submit:
+if submit or user_ip:
 
     #progress bar
-    progress_text = "Please wait, we are fetching the data..."
+    progress_text = "Please wait,fetching the data..."
     my_bar = st.progress(0, text=progress_text)
 
     for percent_complete in range(100):
@@ -84,18 +74,19 @@ if submit:
     tot_days=total_days.calculate_days_between_dates(d2,d1)
     st.subheader("Total days")
     tot_days
+   
     d1= end_date.strftime("%Y-%m-%d")
-    d2 = (end_date - timedelta(days=tot_days)).strftime("%Y-%m-%d")
-    start_date=d2
-    end_date=d1
+    d2 = (end_date - timedelta(days=tot_days))
+    
     msft = yf.Ticker(user_ip)
     
     company_name = msft.info['longName']
     if company_name:
         st.success("Got it")
-    
+    st.subheader("Company Name")
+    st.button(company_name)
        
-    st.subheader('Stock Trend Prediction of '+ company_name)
+    st.subheader('Stock data of '+ company_name)
     
 
     # ticker = get_ticker(user_ip)
@@ -108,7 +99,8 @@ if submit:
 
 
     #Describing data
-    st.subheader(f'From {start_date} to {end_date}')
+   
+    st.subheader(f'From {d2} to {d1}')
     st.dataframe(df1, width=1000, height=300)
    
 
