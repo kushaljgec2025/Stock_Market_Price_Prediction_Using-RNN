@@ -1,0 +1,13 @@
+streamlit
+pandas
+numpy
+datetime
+scikit-learn
+keras.models
+yfinance
+tensorflow
+requests
+matplotlib
+timedelta
+
+

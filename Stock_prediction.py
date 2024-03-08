@@ -174,7 +174,8 @@ if submit:
     y_test=y_test*scale_fact
 
 
-    #Graph plot
+    #Graph plot Original vs Pedicted 
+    
 
 
     st.success("Predicted Stock")
